@@ -1,6 +1,12 @@
 package br.com.bytebank.banco.modelo;
 
-abstract class Conta {
+/**
+ * Classe que representa um cliente no Bytebank.
+ * 
+ * @author winter.fonseca
+ * @version 0.1
+ */
+public abstract class Conta {
 
 	protected double saldo;
 	private int agencia;
@@ -8,6 +14,12 @@ abstract class Conta {
 	private Cliente titular;
 	private static int total = 0;
 
+	/**
+	 * Construtor para inicializar o objeto a partir da agencio e numero.
+	 * 
+	 * @param agencia
+	 * @param numero
+	 */
 	public Conta(int agencia, int numero) {
 		Conta.total++;
 		// System.out.println("O total de contas é " + Conta.total);
@@ -19,6 +31,11 @@ abstract class Conta {
 
 	public abstract void deposita(double valor);
 
+	/**
+	 * 
+	 * @param valor
+	 * @throws SaldoInsuficienteException
+	 */
 	public void saca(double valor) throws SaldoInsuficienteException {
 		if (this.saldo < valor) {
 			throw new SaldoInsuficienteException("Saldo: " + this.saldo + ", Valor: " + valor);
@@ -27,8 +44,8 @@ abstract class Conta {
 	}
 
 	public void transfere(double valor, Conta destino) throws SaldoInsuficienteException {
-	    this.saca(valor);
-	    destino.deposita(valor);
+		this.saca(valor);
+		destino.deposita(valor);
 	}
 
 	public double getSaldo() {
